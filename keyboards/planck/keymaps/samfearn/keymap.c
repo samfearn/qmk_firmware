@@ -34,7 +34,8 @@ enum planck_keycodes {
 
 //Tap Dance Declarations
 enum {
-  TD_1P_KEY = 0
+  TD_1P_KEY = 0,
+  TD_CMDALT
 };
 
 #define LOWER MO(_LOWER)
@@ -50,14 +51,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |SCSft |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |  Up  |SCSft |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Brite| Ctrl | Alt  | CMD  |Lower |    Space    |Raise | CMD  | Left | Down |Right |
+ * | Brite| Ctrl | Alt  | CMD  |Lower |    Space    |Raise |CMD/At| Left | Down |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_planck_grid(
     KC_GESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     HYPR_T(KC_TAB),  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
     KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP, KC_RSPC ,
-    BACKLIT, KC_LCTL, KC_LALT, KC_LCMD, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_RCMD, KC_LEFT, KC_DOWN,   KC_RGHT
+    BACKLIT, KC_LCTL, KC_LALT, KC_LCMD, LOWER,   KC_SPC,  KC_SPC,  RAISE,   TD(TD_CMDALT), KC_LEFT, KC_DOWN,   KC_RGHT
 ),
 
 /* Lower
@@ -275,5 +276,6 @@ void dance_1p_reset (qk_tap_dance_state_t *state, void *user_data) {
 
 //All tap dance functions should go here.
 qk_tap_dance_action_t tap_dance_actions[] = {
- [TD_1P_KEY] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_1p_finished, dance_1p_reset)
+ [TD_1P_KEY] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_1p_finished, dance_1p_reset),
+ [TD_CMDALT] = ACTION_TAP_DANCE_DOUBLE(KC_RCMD, KC_RALT)
 };
