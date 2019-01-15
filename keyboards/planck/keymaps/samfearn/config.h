@@ -37,4 +37,5 @@
 // Most tactile encoders have detents every 4 stages
 #define ENCODER_RESOLUTION 4
 
+// Enable command-option-escape to work as expected							
 #define GRAVE_ESC_ALT_OVERRIDE
