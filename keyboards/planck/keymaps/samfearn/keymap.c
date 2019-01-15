@@ -32,6 +32,11 @@ enum planck_keycodes {
   EXT_PLV
 };
 
+//Tap Dance Declarations
+enum {
+  TD_1P_KEY = 0
+};
+
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 
@@ -61,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   _  |   +  |   {  |   }  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | SCLSB|  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |  |   |  "   |   /  | Vol+ | SCRSB|
+ * | SCLSB|  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |  1P  |  "   |   /  | Vol+ | SCRSB|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      | Play | Prev | Vol- | Next |
  * `-----------------------------------------------------------------------------------'
@@ -69,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT_planck_grid(
     KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,    KC_ASTR,    KC_LPRN, KC_RPRN, KC_DEL,
     KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS,    KC_PLUS,    KC_LCBR, KC_RCBR, _______,
-    LSFT_T(KC_LBRC), KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PIPE, KC_DQUO, KC_SLSH, KC_VOLU,  RSFT_T(KC_RBRC),
+    LSFT_T(KC_LBRC), KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, TD(TD_1P_KEY) , KC_DQUO, KC_SLSH, KC_VOLU,  RSFT_T(KC_RBRC),
     _______, _______, _______, _______, _______, _______, _______, _______, KC_MPLY, KC_MRWD, KC_VOLD, KC_MFFD
 ),
 
@@ -244,3 +249,31 @@ bool music_mask_user(uint16_t keycode) {
       return true;
   }
 }
+
+//Tap Dance Definitions
+void dance_1p_finished (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    register_code (KC_LCMD);
+    register_code (KC_BSLS);
+  } else {
+    register_code (KC_LCMD);
+    register_code (KC_LALT);
+    register_code (KC_BSLS);
+  }
+}
+
+void dance_1p_reset (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    unregister_code (KC_LCMD);
+    unregister_code (KC_BSLS);
+  } else {
+    unregister_code (KC_LCMD);
+    unregister_code (KC_LALT);
+    unregister_code (KC_BSLS);
+  }
+}
+
+//All tap dance functions should go here.
+qk_tap_dance_action_t tap_dance_actions[] = {
+ [TD_1P_KEY] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_1p_finished, dance_1p_reset)
+};

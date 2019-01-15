@@ -39,3 +39,6 @@
 
 // Enable command-option-escape to work as expected							
 #define GRAVE_ESC_ALT_OVERRIDE
+
+// Required for Tap-Dance
+#define TAPPING_TERM 200
