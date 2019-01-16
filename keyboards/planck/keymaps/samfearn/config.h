@@ -42,3 +42,6 @@
 
 // Required for Tap-Dance
 #define TAPPING_TERM 200
+
+// Toggle the function layer						
+#define TAPPING_TOGGLE 3
