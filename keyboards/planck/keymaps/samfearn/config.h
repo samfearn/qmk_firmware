@@ -41,7 +41,7 @@
 #define GRAVE_ESC_ALT_OVERRIDE
 
 // Required for Tap-Dance
-#define TAPPING_TERM 200
+#define TAPPING_TERM 180
 
 // Toggle the function layer						
 #define TAPPING_TOGGLE 3

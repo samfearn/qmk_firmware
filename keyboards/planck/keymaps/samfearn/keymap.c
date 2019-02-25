@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     HYPR_T(KC_TAB),  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_QUOT, KC_ENT,
     KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP, KC_RSPC ,
     FUNCT, TD(TD_ALTSFT), KC_LALT, KC_LCMD, SPLOWER,   SPLOWER,  SPRAISE,  SPRAISE,   TD(TD_CMDALT), KC_LEFT, KC_DOWN,   KC_RGHT
-),  
+),
 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
@@ -153,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * `-----------------------------------------------------------------------------------'
 */
 [_TRUEQWERT] = LAYOUT_planck_grid(
-   _______, KC_1, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_SCLN, _______,
    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -161,10 +161,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	   
 };
 
+#define ONE_DOWN_SOUND \
+	Q__NOTE(_G7  ),  \
+	Q__NOTE(_D7  ),  \
+	Q__NOTE(_C7  ),  \
+	Q__NOTE(_E7  ),  \
+	Q__NOTE(_G6  ),  \
+	Q__NOTE(_E6  ),
+
 #ifdef AUDIO_ENABLE
   float plover_song[][2]     = SONG(PLOVER_SOUND);
   float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
   float one_up[][2]     = SONG(ONE_UP_SOUND);
+  float one_down[][2]     = SONG(ONE_DOWN_SOUND);
 #endif
 
 uint32_t layer_state_set_user(uint32_t state) {
@@ -321,10 +330,18 @@ void dance_1p_reset (qk_tap_dance_state_t *state, void *user_data) {
 
 void qwert_esc_finished (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 3) {
-    layer_invert(_TRUEQWERT);
-	#ifdef AUDIO_ENABLE
-	    PLAY_SONG(one_up);
-	#endif
+	if (!IS_LAYER_ON(_TRUEQWERT)) {
+	    layer_on(_TRUEQWERT);
+		#ifdef AUDIO_ENABLE
+		    PLAY_SONG(one_up);
+		#endif
+	}
+    else {
+	    layer_off(_TRUEQWERT);
+		#ifdef AUDIO_ENABLE
+		    PLAY_SONG(one_down);
+		#endif 
+    }
   } else {
     register_code (KC_ESC);
   }
