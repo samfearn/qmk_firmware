@@ -45,3 +45,6 @@
 
 // Toggle the function layer						
 #define TAPPING_TOGGLE 3
+								
+// Adjust mouse scrolling speeds
+#define MOUSEKEY_TIME_TO_MAX 10
