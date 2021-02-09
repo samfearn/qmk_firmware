@@ -25,7 +25,7 @@ enum planck_layers {
   _RAISE,
   _ADJUST,
   _FUNCT,
-  _TRUEQWERT
+  _OBSSTUDIO
 };
 
 enum planck_keycodes {
@@ -39,7 +39,8 @@ enum {
   TD_1P_KEY = 0,
   TD_CMDALT,
   TD_ALTSFT,
-  TD_QWERTESC
+  TD_OBSESC,
+  TD_DANCECMD
 };
 
 #define LOWER MO(_LOWER)
@@ -62,17 +63,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_planck_grid(
-    TD(TD_QWERTESC),  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
+    TD(TD_OBSESC),  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     HYPR_T(KC_TAB),  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_QUOT, KC_ENT,
     KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP, KC_RSPC ,
-    FUNCT, TD(TD_ALTSFT), KC_LALT, KC_LCMD, LOWER, KC_SPC, KC_SPC, RAISE,   TD(TD_CMDALT), KC_LEFT, KC_DOWN,   KC_RGHT
+    FUNCT, TD(TD_ALTSFT), KC_LALT, KC_LCMD, LOWER, KC_SPC, KC_SPC, RAISE,   TD(TD_DANCECMD), KC_LEFT, KC_DOWN,   KC_RGHT
 ),
 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
  * |   ~  |   !  |   @  |   £  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |   #  |      |      |      |   _  |   +  |   {  |   }  |      |
+ * |      |      |      |   #  |      |      |      |   -  |   _  |   {  |   }  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | SCLSB|      |      |      |      |      |      |  1P  |  ;   |   \  | Vol+ | SCRSB|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -81,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_LOWER] = LAYOUT_planck_grid(
     KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,    KC_ASTR,    KC_LPRN, KC_RPRN, _______,
-    _______,  _______,   _______,   LALT(KC_3),   _______,   _______,   _______,   KC_UNDS,    KC_PLUS,    KC_LCBR, KC_RCBR, _______,
+    _______,  _______,   _______,   LALT(KC_3),   _______,   _______,   _______, KC_MINS,   KC_UNDS,    KC_LCBR, KC_RCBR, _______,
     LSFT_T(KC_LBRC), _______,   _______,   _______,   _______,  _______,  _______, TD(TD_1P_KEY) , KC_SCLN, KC_BSLS, KC_VOLU,  RSFT_T(KC_RBRC),
     _______, _______, _______, _______, _______, _______, _______, _______, KC_MPLY, KC_MRWD, KC_VOLD, KC_MFFD
 ),
@@ -91,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |   -  |   =  |   [  |   ]  |      |
+ * |      |      |      |      |      |      |      |   +  |   =  |   [  |   ]  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | SCLCB|      |      |      |      |      |      |  ?   |   :  |  /   | Vol+ | SCRCB|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -100,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_RAISE] = LAYOUT_planck_grid(
     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
-    _______,  _______,   _______,   _______,   _______,   _______,   _______,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, _______,
+    _______,  _______,   _______,   _______,   _______,   _______,   _______,   KC_PLUS, KC_EQL,  KC_LBRC, KC_RBRC, _______,
     LSFT_T(KC_LBRC), _______,   _______,   _______,   _______,  _______,  _______,  KC_QUES, KC_COLN, KC_SLSH, KC_VOLU, RSFT_T(KC_RBRC),
     _______, _______, _______, _______, _______, _______, _______, _______, KC_MPLY, KC_MRWD, KC_VOLD, KC_MFFD
 ),
@@ -138,25 +139,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    _______, KC_F1, KC_F2, KC_F3, KC_F4, KC_P7, KC_P8, KC_P9, KC_PAST,  KC_PSLS, KC_MS_WH_UP, KC_DEL ,
    _______, KC_F5, KC_F6, KC_F7, KC_F8, KC_P4, KC_P5, KC_P6, KC_PPLS,  KC_PMNS, KC_MS_WH_DOWN, KC_PENT ,
    _______, KC_F9, KC_F10, KC_F11, KC_F12, KC_P1, KC_P2, KC_P3, KC_PCMM,  KC_PDOT, KC_MS_U, KC_MS_BTN1 ,
-   _______, _______, _______, _______, _______, KC_P0, KC_P0, KC_PENT, KC_PEQL,  KC_MS_L, KC_MS_D, KC_MS_R
+   _______, KC_ACL0, KC_ACL1, KC_ACL2, _______, KC_P0, KC_P0, KC_PENT, KC_PEQL,  KC_MS_L, KC_MS_D, KC_MS_R
 ),
 
-/* TRUEQWERT (TapDancing Toggle)
+/* OBSSTUDIO (TapDancing Toggle)
 * ,-----------------------------------------------------------------------------------.
-* |      |      |      |      |      |      |      |      |      |      |      |      |
+* |      |  S1  |  S2  |  S3  |  S4  |  S5  |  S6  |  S7  |  S8  |  S9  |      |      |
 * |------+------+------+------+------+-------------+------+------+------+------+------|
-* |      |      |      |      |      |      |      |      |      |      |   ;  |      |
+* |      |      |      |      | Fade |      |      |      |      |      |   ;  |S/S Rec.|
 * |------+------+------+------+------+------|------+------+------+------+------+------|
-* |      |      |      |      |      |      |      |      |      |      |      |      |
+* |      |      |      |      |      |      |      |      |      |      |Nav U |      |
 * |------+------+------+------+------+------+------+------+------+------+------+------|
-* |      |      |      |      |      |             |      |      |      |      |      |
+* |      |      |      |      |      |  Play/Pause |      |      |Nav L |Nav D |Nav R |
 * `-----------------------------------------------------------------------------------'
 */
-[_TRUEQWERT] = LAYOUT_planck_grid(
-   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_SCLN, _______,
-   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+[_OBSSTUDIO] = LAYOUT_planck_grid(
+   _______, HYPR(KC_1), HYPR(KC_2), HYPR(KC_3), HYPR(KC_4), HYPR(KC_5), HYPR(KC_6), HYPR(KC_7), HYPR(KC_8), HYPR(KC_9), _______, _______,
+   _______, _______, _______, _______, LCAG(KC_F), _______, _______, _______, _______, _______, KC_SCLN, HYPR(KC_ENT),
+   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, HYPR(KC_UP), _______,
+   _______, _______, _______, _______, _______, HYPR(KC_SPC), HYPR(KC_SPC), _______, _______, HYPR(KC_LEFT), HYPR(KC_DOWN), HYPR(KC_RGHT)
 )
 	   
 };
@@ -328,16 +329,16 @@ void dance_1p_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void qwert_esc_finished (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 3) {
-	if (!IS_LAYER_ON(_TRUEQWERT)) {
-	    layer_on(_TRUEQWERT);
+void obs_esc_finished (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 2) {
+	if (!IS_LAYER_ON(_OBSSTUDIO)) {
+	    layer_on(_OBSSTUDIO);
 		#ifdef AUDIO_ENABLE
 		    PLAY_SONG(one_up);
 		#endif
 	}
     else {
-	    layer_off(_TRUEQWERT);
+	    layer_off(_OBSSTUDIO);
 		#ifdef AUDIO_ENABLE
 		    PLAY_SONG(one_down);
 		#endif 
@@ -347,11 +348,35 @@ void qwert_esc_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void qwert_esc_reset (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 3) {
+void obs_esc_reset (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 2) {
   } else {
     unregister_code (KC_ESC);
   }
+}
+
+void dance_command_finished (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 2) {
+    register_code (KC_RALT);
+  } else if (state->count == 3) {
+    register_code (KC_RCMD);
+	register_code (KC_RALT);
+  }
+  else {
+  	register_code (KC_RCMD);
+  }
+}
+
+void dance_command_reset (qk_tap_dance_state_t *state, void *user_data) {
+    if (state->count == 2) {
+      unregister_code (KC_RALT);
+    } else if (state->count == 3) {
+      unregister_code (KC_RCMD);
+  	  unregister_code (KC_RALT);
+    }
+    else {
+      unregister_code (KC_RCMD);
+    }
 }
 
 //All tap dance functions should go here.
@@ -359,5 +384,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
  [TD_1P_KEY] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_1p_finished, dance_1p_reset),
  [TD_CMDALT] = ACTION_TAP_DANCE_DOUBLE(KC_RCMD, KC_RALT),
  [TD_ALTSFT] = ACTION_TAP_DANCE_DOUBLE(KC_LCTL, KC_LSFT),
- [TD_QWERTESC] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, qwert_esc_finished, qwert_esc_reset)
+ [TD_DANCECMD] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_command_finished, dance_command_reset),
+ [TD_OBSESC] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, obs_esc_finished, obs_esc_reset)
 };
