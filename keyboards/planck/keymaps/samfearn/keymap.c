@@ -40,7 +40,8 @@ enum {
   TD_CMDALT,
   TD_ALTSFT,
   TD_OBSESC,
-  TD_DANCECMD
+  TD_DANCECMD,
+  TD_MSBTN
 };
 
 #define LOWER MO(_LOWER)
@@ -77,14 +78,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | SCLSB|      |      |      |      |      |      |  1P  |  ;   |   \  | Vol+ | SCRSB|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      | Play | Prev | Vol- | Next |
+ * |      |      |      |      |      |             |      | Play |      | Vol- |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_planck_grid(
     KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,    KC_ASTR,    KC_LPRN, KC_RPRN, _______,
     _______,  _______,   _______,   LALT(KC_3),   _______,   _______,   _______, KC_MINS,   KC_UNDS,    KC_LCBR, KC_RCBR, _______,
     LSFT_T(KC_LBRC), _______,   _______,   _______,   _______,  _______,  _______, TD(TD_1P_KEY) , KC_SCLN, KC_BSLS, KC_VOLU,  RSFT_T(KC_RBRC),
-    _______, _______, _______, _______, _______, _______, _______, _______, KC_MPLY, KC_MRWD, KC_VOLD, KC_MFFD
+    _______, _______, _______, _______, _______, _______, _______, _______, KC_MPLY, _______, KC_VOLD, _______
 ),
 
 /* Raise
@@ -138,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_FUNCT] = LAYOUT_planck_grid(
    _______, KC_F1, KC_F2, KC_F3, KC_F4, KC_P7, KC_P8, KC_P9, KC_PAST,  KC_PSLS, KC_MS_WH_UP, KC_DEL ,
    _______, KC_F5, KC_F6, KC_F7, KC_F8, KC_P4, KC_P5, KC_P6, KC_PPLS,  KC_PMNS, KC_MS_WH_DOWN, KC_PENT ,
-   _______, KC_F9, KC_F10, KC_F11, KC_F12, KC_P1, KC_P2, KC_P3, KC_PCMM,  KC_PDOT, KC_MS_U, KC_MS_BTN1 ,
+   _______, KC_F9, KC_F10, KC_F11, KC_F12, KC_P1, KC_P2, KC_P3, KC_PCMM,  KC_PDOT, KC_MS_U, TD(TD_MSBTN) ,
    _______, KC_ACL0, KC_ACL1, KC_ACL2, _______, KC_P0, KC_P0, KC_PENT, KC_PEQL,  KC_MS_L, KC_MS_D, KC_MS_R
 ),
 
@@ -384,6 +385,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
  [TD_1P_KEY] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_1p_finished, dance_1p_reset),
  [TD_CMDALT] = ACTION_TAP_DANCE_DOUBLE(KC_RCMD, KC_RALT),
  [TD_ALTSFT] = ACTION_TAP_DANCE_DOUBLE(KC_LCTL, KC_LSFT),
+ [TD_MSBTN] = ACTION_TAP_DANCE_DOUBLE(KC_MS_BTN1, KC_MS_BTN2),
  [TD_DANCECMD] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_command_finished, dance_command_reset),
  [TD_OBSESC] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, obs_esc_finished, obs_esc_reset)
 };

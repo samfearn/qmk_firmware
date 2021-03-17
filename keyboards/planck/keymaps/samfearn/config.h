@@ -49,7 +49,7 @@
 // Use the mouse functions in combined mode
 #define MK_COMBINED								
 // Adjust mouse scrolling speeds
-#define MOUSEKEY_TIME_TO_MAX 15
+#define MOUSEKEY_TIME_TO_MAX 25
 #define MOUSEKEY_MAX_SPEED 5
 #define MOUSEKEY_INTERVAL 20
-#define MOUSEKEY_WHEEL_MAX_SPEED 3
+#define MOUSEKEY_WHEEL_MAX_SPEED 1
